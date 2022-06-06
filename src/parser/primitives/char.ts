@@ -2,9 +2,9 @@ import { ParserInput } from "../types/ParseInput.js";
 import { ParserOutput } from "../types/ParserOutput.js";
 import { anyChar } from "./anyChar.js";
 
-export function char(
-  c: ParserInput[0]
-): (input: ParserInput) => ParserOutput<string> {
+export function char<T extends string>(
+  c: T
+): (input: ParserInput) => ParserOutput<T> {
   return (input) => {
     const r = anyChar(input);
 
