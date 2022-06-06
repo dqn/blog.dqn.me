@@ -2,7 +2,7 @@ import http from "node:http";
 
 const port = 8000;
 
-function main() {
+function main(): void {
   const server = http.createServer();
 
   server.on("request", (req, res) => {

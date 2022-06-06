@@ -4,6 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "test": "node --test",
     "watch": "tsc -w",
     "dev": "node ./dist/dev.js",
     "lint": "tsc --noEmit"
