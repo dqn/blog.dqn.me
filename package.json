@@ -4,10 +4,12 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "node --test",
-    "watch": "tsc -w",
-    "dev": "node ./dist/dev.js",
-    "lint": "tsc --noEmit"
+    "clean": "rm -rf ./dist",
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "test": "yarn clean && yarn build && node --test",
+    "watch": "yarn clean && tsc -w",
+    "dev": "node ./dist/dev.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.40",
