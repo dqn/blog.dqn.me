@@ -1,7 +1,7 @@
-import { ParserInput } from "../types/ParseInput.js";
-import { Parser } from "../types/Parser.js";
-import { ParserData } from "../types/ParserData.js";
-import { ParserOutput } from "../types/ParserOutput.js";
+import type { ParserInput } from "../types/ParseInput.js";
+import type { Parser } from "../types/Parser.js";
+import type { ParserData } from "../types/ParserData.js";
+import type { ParserOutput } from "../types/ParserOutput.js";
 
 type ParserDataList<T extends readonly Parser<unknown>[]> = {
   [P in keyof T]: ParserData<T[P]>;

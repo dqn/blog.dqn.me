@@ -1,5 +1,5 @@
-import { Parser } from "../types/Parser.js";
-import { ParserData } from "../types/ParserData.js";
+import type { Parser } from "../types/Parser.js";
+import type { ParserData } from "../types/ParserData.js";
 
 export function rep<T>(
   p: Parser<T>,

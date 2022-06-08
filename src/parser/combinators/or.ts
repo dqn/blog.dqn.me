@@ -1,6 +1,6 @@
-import { ParserInput } from "../types/ParseInput.js";
-import { Parser } from "../types/Parser.js";
-import { ParserOutput } from "../types/ParserOutput.js";
+import type { ParserInput } from "../types/ParseInput.js";
+import type { Parser } from "../types/Parser.js";
+import type { ParserOutput } from "../types/ParserOutput.js";
 
 export function or<T>(
   ps: readonly Parser<T>[]

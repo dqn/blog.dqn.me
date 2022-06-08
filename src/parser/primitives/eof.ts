@@ -1,5 +1,5 @@
-import { ParserInput } from "../types/ParseInput.js";
-import { ParserOutput } from "../types/ParserOutput.js";
+import type { ParserInput } from "../types/ParseInput.js";
+import type { ParserOutput } from "../types/ParserOutput.js";
 
 export function eof(input: ParserInput): ParserOutput<null> {
   if (input.length === 0) {
