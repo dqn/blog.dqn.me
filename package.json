@@ -9,7 +9,8 @@
     "lint": "tsc --noEmit",
     "test": "yarn clean && yarn build && node --test",
     "watch": "yarn clean && tsc -w",
-    "dev": "node ./dist/dev.js"
+    "dev": "node ./dist/dev.js",
+    "export": "node ./dist/export.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.40",
