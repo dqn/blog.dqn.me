@@ -56,14 +56,46 @@ async function main(): Promise<void> {
   };
 
   const pages = await Promise.all(
-    paths.map<Promise<Page>>(async (p) => {
-      const x = await import(p.replace(/^dist/, "."));
-      return {
-        path: p.replace(baseDir, ""),
-        data: `<!DOCTYPE html>${generateHtml(x.default({}))}\n`,
-      };
+    paths.map<Promise<Page[]>>(async (p) => {
+      const module = await import(p.replace(/^dist/, "."));
+
+      const normalizedPath = p.replace(baseDir, "");
+      const matches = /\[([A-Za-z\-]+)\]/g.exec(normalizedPath);
+
+      if (matches === null) {
+        return [
+          {
+            path: normalizedPath,
+            data: `<!DOCTYPE html>${generateHtml(module.default({}))}\n`,
+          },
+        ];
+      }
+
+      const paramNames = matches?.slice(1);
+
+      if (module.getStaticPaths !== undefined) {
+        const paramsList = await module.getStaticPaths();
+        const propsList = await Promise.all(
+          paramsList.map(async (params: any) => {
+            const props = await module.getStaticProps(params);
+            const path = paramNames?.reduce(
+              (acc, name) => acc.replace(`[${name}]`, params[name]),
+              normalizedPath
+            );
+
+            return { path, props };
+          })
+        );
+
+        return propsList.map(({ path, props }) => ({
+          path,
+          data: `<!DOCTYPE html>${generateHtml(module.default(props))}\n`,
+        }));
+      }
+
+      throw new Error("hoge");
     })
-  );
+  ).then((xs) => xs.flat());
 
   await rm(outDir, { recursive: true, force: true });
   await mkdir(outDir);

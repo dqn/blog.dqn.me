@@ -20,8 +20,11 @@ function main(): void {
       return;
     }
 
+    const hasExt = path.extname(req.url) !== "";
+
     const filepath =
-      req.url === "/" ? withBaseDir("index.html") : withBaseDir(req.url);
+      (req.url === "/" ? withBaseDir("index") : withBaseDir(req.url)) +
+      (hasExt ? "" : ".html");
 
     readFile(filepath, "utf8")
       .then((data) => {
