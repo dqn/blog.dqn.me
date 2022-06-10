@@ -48,8 +48,6 @@ async function main(): Promise<void> {
     xs.filter((x) => !path.basename(x).startsWith("_"))
   );
 
-  const { App } = await import("./pages/_app.js");
-
   type Page = {
     path: string;
     data: string;
@@ -60,7 +58,7 @@ async function main(): Promise<void> {
       const x = await import(p.replace(/^dist/, "."));
       return {
         path: p.replace(baseDir, ""),
-        data: `<!DOCTYPE html>${generateHtml(App(x.default({})))}\n`,
+        data: `<!DOCTYPE html>${generateHtml(x.default({}))}\n`,
       };
     })
   );

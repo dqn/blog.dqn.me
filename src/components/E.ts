@@ -1,9 +1,9 @@
-import type { Element } from "../types/Element.js";
+import type { Children, Element } from "../types/Element.js";
 
 export function E(
   tag: Element["tag"],
   attributes?: Element["attributes"],
-  ...children: Element["children"]
+  ...children: Children
 ): Element {
   return { tag, attributes, children };
 }
