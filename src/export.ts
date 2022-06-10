@@ -1,9 +1,11 @@
-import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Element } from "./types/Element.js";
 
 const baseDir = "dist/pages";
 const outDir = "out";
+const stylesDir = "src/styles";
+const outStyleFilename = "style.css";
 
 async function listFiles(dir: string): Promise<string[]> {
   const dirents = await readdir(dir, { withFileTypes: true });
@@ -66,14 +68,19 @@ async function main(): Promise<void> {
   await rm(outDir, { recursive: true, force: true });
   await mkdir(outDir);
 
-  await Promise.all(
-    pages.map(async (page) => {
+  await Promise.all([
+    ...pages.map(async (page) => {
       const outPath = path.join(outDir, page.path.replace(/\..*/, ".html"));
       await mkdir(path.dirname(outPath), { recursive: true });
       await writeFile(outPath, page.data);
       console.log(outPath);
-    })
-  );
+    }),
+    listFiles(stylesDir).then((paths) =>
+      Promise.all(paths.map((p) => readFile(p, "utf-8"))).then((xs) =>
+        writeFile(path.join(outDir, outStyleFilename), xs.join("\n"))
+      )
+    ),
+  ]);
 }
 
 await main();

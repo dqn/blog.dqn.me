@@ -1,0 +1,10 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic",
+    "YuGothic", Verdana, Meiryo, sans-serif;
+  background-color: #665886;
+  color: #fff;
+}
+
+.mt-8 {
+  margin-top: 8rem;
+}
