@@ -1,6 +1,9 @@
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { Element } from "./types/Element.js";
+import type { Component } from "./types/Component.js";
+import type { AppNode } from "./types/Element.js";
+import type { GetStaticPaths } from "./types/GetStaticPaths.js";
+import type { GetStaticProps } from "./types/GetStaticProps.js";
 
 const baseDir = "dist/pages";
 const outDir = "out";
@@ -17,9 +20,13 @@ async function listFiles(dir: string): Promise<string[]> {
   return await Promise.all(tasks).then((xs) => xs.flat());
 }
 
-function generateHtml(element: null | Element): string {
+function generateHtml(element: AppNode): string {
   if (element === null) {
     return "";
+  }
+
+  if (typeof element === "string") {
+    return element;
   }
 
   const attributes = Object.entries(element.attributes ?? {}).map(
@@ -56,44 +63,77 @@ async function main(): Promise<void> {
   };
 
   const pages = await Promise.all(
-    paths.map<Promise<Page[]>>(async (p) => {
-      const module = await import(p.replace(/^dist/, "."));
+    paths.map(async (p): Promise<Page[]> => {
+      type Params = Record<string, unknown>;
+      type Module = {
+        default?: Component<Params>;
+        getStaticPaths?: GetStaticPaths<Record<string, string>>;
+        getStaticProps?: GetStaticProps<Params, Record<string, string>>;
+      };
+      const {
+        default: renderer,
+        getStaticProps,
+        getStaticPaths,
+      }: Module = await import(p.replace(/^dist/, "."));
+
+      if (renderer === undefined) {
+        throw new Error(`${p} does not have default export`);
+      }
 
       const normalizedPath = p.replace(baseDir, "");
       const matches = /\[([A-Za-z\-]+)\]/g.exec(normalizedPath);
 
+      const generateData = (params: Params) =>
+        "<!DOCTYPE html>" + generateHtml(renderer(params)) + "\n";
+
       if (matches === null) {
+        // no dinamic routes
+
+        const params = (await getStaticProps?.({})) ?? {};
         return [
           {
             path: normalizedPath,
-            data: `<!DOCTYPE html>${generateHtml(module.default({}))}\n`,
+            data: generateData(params),
           },
         ];
       }
 
-      const paramNames = matches?.slice(1);
+      if (getStaticPaths !== undefined) {
+        // dynamic routes
+        if (getStaticProps === undefined) {
+          throw new Error(
+            `${p} has getStaticPaths but not have getStaticProps`
+          );
+        }
 
-      if (module.getStaticPaths !== undefined) {
-        const paramsList = await module.getStaticPaths();
-        const propsList = await Promise.all(
-          paramsList.map(async (params: any) => {
-            const props = await module.getStaticProps(params);
-            const path = paramNames?.reduce(
-              (acc, name) => acc.replace(`[${name}]`, params[name]),
-              normalizedPath
-            );
+        const paramsList = await getStaticPaths();
 
-            return { path, props };
+        return await Promise.all(
+          paramsList.map(async (params): Promise<Page> => {
+            const props = await getStaticProps(params);
+
+            const paramNames = matches.slice(1);
+            const path = paramNames.reduce((acc, name) => {
+              const param = params[name];
+
+              if (param === undefined) {
+                throw new Error(
+                  `${p}'s getStaticProps not returns param named '${name}'`
+                );
+              }
+
+              return acc.replace(`[${name}]`, param);
+            }, normalizedPath);
+
+            return {
+              path,
+              data: generateData(props),
+            };
           })
         );
-
-        return propsList.map(({ path, props }) => ({
-          path,
-          data: `<!DOCTYPE html>${generateHtml(module.default(props))}\n`,
-        }));
       }
 
-      throw new Error("hoge");
+      throw new Error(`${p} is dynamic path but does not have getStaticPaths`);
     })
   ).then((xs) => xs.flat());
 

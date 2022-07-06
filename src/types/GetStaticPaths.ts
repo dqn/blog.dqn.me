@@ -1,1 +1,3 @@
-export type GetStaticPaths<T> = () => Promise<T[]>;
+export type GetStaticPaths<T extends Record<string, string>> = () => Promise<
+  T[]
+>;
