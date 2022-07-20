@@ -1,4 +1,4 @@
-import { readdir, readFile } from "fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "path";
 import { E } from "../components/E.js";
 import { Layout } from "../components/Layout.js";

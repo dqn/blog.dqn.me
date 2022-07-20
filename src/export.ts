@@ -1,5 +1,12 @@
-import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
-import path from "node:path";
+import {
+  copyFile,
+  mkdir,
+  readdir,
+  readFile,
+  rm,
+  writeFile,
+} from "node:fs/promises";
+import path, { basename } from "node:path";
 import type { Component } from "./types/Component.js";
 import type { AppNode } from "./types/Element.js";
 import type { GetStaticPaths } from "./types/GetStaticPaths.js";
@@ -7,6 +14,7 @@ import type { GetStaticProps } from "./types/GetStaticProps.js";
 
 const baseDir = "dist/pages";
 const outDir = "out";
+const publicDir = "public";
 const stylesDir = "src/styles";
 const outStyleFilename = "style.css";
 
@@ -151,6 +159,9 @@ async function main(): Promise<void> {
       Promise.all(paths.map((p) => readFile(p, "utf-8"))).then((xs) =>
         writeFile(path.join(outDir, outStyleFilename), xs.join("\n"))
       )
+    ),
+    listFiles(publicDir).then((paths) =>
+      Promise.all(paths.map((p) => copyFile(p, path.join(outDir, basename(p)))))
     ),
   ]);
 }
