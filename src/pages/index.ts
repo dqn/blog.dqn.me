@@ -23,15 +23,20 @@ const Top: Component<Props> = ({ entries }) => {
     { title: siteName },
     E(
       "ul",
-      { class: "space-y-4" },
+      { class: "space-y-8 max-w-screen-md mx-auto" },
       ...entries.map(({ title, date, path }) =>
         E(
           "li",
           {},
           E(
-            "a",
-            { href: path, class: "text-white visited:text-visited" },
-            `${title} (${date})`
+            "div",
+            { class: "flex flex-col" },
+            E("time", { class: "text-sm" }, date),
+            E(
+              "a",
+              { href: path, class: "mt-2 text-white visited:text-visited" },
+              `${title}`
+            )
           )
         )
       )

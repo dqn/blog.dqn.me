@@ -9,8 +9,20 @@ html {
   max-width: 768px;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
 .m-0 {
   margin: 0;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mt-12 {
@@ -31,8 +43,8 @@ html {
   margin-bottom: 1rem;
 }
 
-.space-y-4 > :nth-child(n + 2) {
-  margin-top: 1rem;
+.space-y-8 > :nth-child(n + 2) {
+  margin-top: 2rem;
 }
 
 .p-5 {
