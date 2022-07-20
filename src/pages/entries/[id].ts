@@ -31,7 +31,7 @@ const Entry: Component<Props> = ({ title, date, content }) => {
       E(
         "main",
         { class: "p-5 bg-white text-text" },
-        E("p", { class: "m-0 leading-8" }, content)
+        E("p", { class: "whitespace-pre-wrap" }, content)
       )
     )
   );

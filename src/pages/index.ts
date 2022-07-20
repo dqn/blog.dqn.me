@@ -32,11 +32,7 @@ const Top: Component<Props> = ({ entries }) => {
             "div",
             { class: "flex flex-col" },
             E("time", { class: "text-sm" }, date),
-            E(
-              "a",
-              { href: path, class: "mt-2 text-white visited:text-visited" },
-              `${title}`
-            )
+            E("a", { href: path, class: "mt-2 text-white" }, title)
           )
         )
       )

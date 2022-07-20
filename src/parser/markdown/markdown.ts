@@ -15,7 +15,7 @@ function hr(input: ParserInput): ParserOutput<"---\n"> {
 }
 
 function content(input: ParserInput): ParserOutput<string> {
-  return map(rep(anyChar, 0), (cs) => cs.join(""))(input);
+  return map(rep(anyChar, 0), (cs) => cs.join("").trim())(input);
 }
 
 type Markdown = {

@@ -5,8 +5,17 @@ html {
   color: #fff;
 }
 
+p {
+  margin: 0;
+  line-height: 1.725rem;
+}
+
 .no-underline {
   text-decoration-line: none;
+}
+
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
 }
 
 .max-w-screen-md {
@@ -19,10 +28,6 @@ html {
 
 .flex-col {
   flex-direction: column;
-}
-
-.m-0 {
-  margin: 0;
 }
 
 .mt-2 {
@@ -97,12 +102,4 @@ html {
 
 .bg-white {
   background-color: #fff;
-}
-
-.leading-8 {
-  line-height: 1.5rem;
-}
-
-.visited\:text-visited {
-  color: #aaa;
 }
