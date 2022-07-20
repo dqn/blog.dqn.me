@@ -31,6 +31,10 @@ html {
   margin-bottom: 1rem;
 }
 
+.space-y-4 > :nth-child(n + 2) {
+  margin-top: 1rem;
+}
+
 .p-5 {
   padding: 1.25rem;
 }
@@ -63,10 +67,18 @@ html {
   color: #1c1c1c;
 }
 
+.text-white {
+  color: #fff;
+}
+
 .bg-white {
   background-color: #fff;
 }
 
 .leading-8 {
   line-height: 1.5rem;
+}
+
+.visited\:text-visited {
+  color: #aaa;
 }
