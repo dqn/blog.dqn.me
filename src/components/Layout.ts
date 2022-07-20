@@ -1,3 +1,4 @@
+import { siteName } from "../siteName.js";
 import type { Component } from "../types/Component.js";
 import { E } from "./E.js";
 
@@ -19,6 +20,18 @@ export const Layout: Component<Props> = ({ title }, ...children) => {
       E("link", { rel: "preload", href: "/style.css", as: "style" }),
       E("link", { rel: "stylesheet", href: "/style.css" }),
       E("title", {}, title)
+    ),
+    E(
+      "header",
+      { class: "p-4 max-w-screen-md mx-auto" },
+      E(
+        "a",
+        {
+          href: "/",
+          class: "text-xl text-white font-bold underline-none no-underline",
+        },
+        siteName
+      )
     ),
     E("body", {}, ...children),
     E("footer", { class: "text-xs text-center my-4" }, "© 2022 dqn")
