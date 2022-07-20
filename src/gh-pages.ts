@@ -2,7 +2,7 @@ import { copyFile, mkdir, readdir, rm } from "node:fs/promises";
 import path, { dirname } from "node:path";
 
 const outDir = "out";
-const whitelist = [".git", outDir, "entries"];
+const whitelist = [".git", outDir];
 
 async function listFiles(dir: string): Promise<string[]> {
   const dirents = await readdir(dir, { withFileTypes: true });
