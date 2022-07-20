@@ -1,10 +1,72 @@
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic",
     "YuGothic", Verdana, Meiryo, sans-serif;
-  background-color: #665886;
+  background-color: #4c485b;
   color: #fff;
 }
 
-.mt-8 {
-  margin-top: 8rem;
+.max-w-screen-md {
+  max-width: 768px;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mt-12 {
+  margin-top: 3rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-text {
+  color: #1c1c1c;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.leading-8 {
+  line-height: 1.5rem;
 }

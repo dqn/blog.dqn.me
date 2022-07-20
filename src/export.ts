@@ -89,11 +89,11 @@ async function main(): Promise<void> {
       if (matches === null) {
         // no dinamic routes
 
-        const params = (await getStaticProps?.({})) ?? {};
+        const props = (await getStaticProps?.({})) ?? {};
         return [
           {
             path: normalizedPath,
-            data: generateData(params),
+            data: generateData(props),
           },
         ];
       }
