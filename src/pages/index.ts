@@ -20,7 +20,7 @@ type Props = {
 
 const Top: Component<Props> = ({ entries }) => {
   return Layout(
-    { title: siteName },
+    { title: siteName, ogType: "website" },
     E(
       "ul",
       { class: "space-y-8 max-w-screen-md mx-auto" },

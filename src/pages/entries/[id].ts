@@ -18,7 +18,7 @@ type Props = {
 
 const Entry: Component<Props> = ({ title, date, content }) => {
   return Layout(
-    { title: `${title} | ${siteName}` },
+    { title: `${title} | ${siteName}`, ogType: "article" },
     E(
       "div",
       { class: "max-w-screen-md mx-auto" },
