@@ -10,7 +10,8 @@
     "test": "yarn clean && yarn build && node --test",
     "watch": "yarn clean && tsc -w",
     "dev": "node ./dist/dev.js",
-    "export": "node ./dist/export.js"
+    "export": "node ./dist/export.js",
+    "gh-pages": "yarn export && node ./dist/gh-pages.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.40",
