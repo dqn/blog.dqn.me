@@ -5,7 +5,7 @@ import path from "node:path";
 const port = 8000;
 
 function withBaseDir(p: string): string {
-  return path.join("out", p);
+  return path.join("docs", p);
 }
 
 function main(): void {

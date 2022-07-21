@@ -13,7 +13,7 @@ import type { GetStaticPaths } from "./types/GetStaticPaths.js";
 import type { GetStaticProps } from "./types/GetStaticProps.js";
 
 const baseDir = "dist/pages";
-const outDir = "out";
+const outDir = "docs";
 const publicDir = "public";
 const stylesDir = "src/styles";
 const outStyleFilename = "style.css";
