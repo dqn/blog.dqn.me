@@ -1,5 +1,5 @@
 ---
-title: 初投稿
+title: ブログをつくっています
 date: 2022-07-20
 ---
 
@@ -7,6 +7,6 @@ date: 2022-07-20
 
 普通に作っても面白くないので Node.js + typescript + @types/node のみでつくっている。Next.js のような SSG や Tailwind CSS のようなユーティリティファーストな CSS を備えてみた。Markdown でブログを書き、それをパースして HTML をレンダリングする。Markdown のパーサも自作のパーサコンビネータを使って書いている。
 
-formatter や linter がないのがつらいので Deno に移行することも視野にいれているが、なんか負けた気分になるので一先ず Node.js でやっている（experimental だが最近テストランナーもついたし）。
+formatter や linter がないのがつらいので Deno に移行することも視野にいれているが、なんか負けた気分になるので一先ず Node.js でやっている（experimental だが最近テストランナーもついたし）。そもそもクライアントサイド JavaScript は使わないので統一のために JavaScript (TypeScript) を書くということはしなくていいんだが…
 
 まだ足りないことはたくさんあるが気ままに育てていきたい。
