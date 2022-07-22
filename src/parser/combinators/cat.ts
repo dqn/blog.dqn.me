@@ -27,7 +27,7 @@ export function cat<T extends readonly Parser<unknown>[]>(
 
     return {
       success: true,
-      data: rs as ParserDataList<T>,
+      data: rs as unknown as ParserDataList<T>,
       rest: i,
     };
   };
