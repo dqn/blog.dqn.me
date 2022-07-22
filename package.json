@@ -5,12 +5,12 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "tsc",
+    "build": "yarn clean && tsc",
     "lint": "tsc --noEmit",
-    "test": "yarn clean && yarn build && node --test",
+    "test": "yarn build && node --test",
     "watch": "yarn clean && tsc -w",
-    "dev": "node ./dist/dev.js",
-    "export": "node ./dist/export.js"
+    "dev": "yarn build && node ./dist/dev.js",
+    "export": "yarn build && node ./dist/export.js"
   },
   "devDependencies": {
     "@types/node": "^17.0.40",

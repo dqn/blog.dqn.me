@@ -163,6 +163,7 @@ async function main(): Promise<void> {
     listFiles(publicDir).then((paths) =>
       Promise.all(paths.map((p) => copyFile(p, path.join(outDir, basename(p)))))
     ),
+    writeFile(path.join(outDir, "CNAME"), "blog.dqn.me"),
   ]);
 }
 
