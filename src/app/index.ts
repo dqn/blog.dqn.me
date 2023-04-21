@@ -1,12 +1,11 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "path";
-import { E } from "../components/E.js";
+import { h } from "../components/h.js";
 import { Layout } from "../components/Layout.js";
 import { entriesDir } from "../helpers/entriesDir.js";
 import { markdown } from "../parser/markdown/markdown.js";
 import { siteName } from "../siteName.js";
 import type { Component } from "../types/Component.js";
-import type { GetStaticProps } from "../types/GetStaticProps.js";
 
 type Entry = {
   title: string;
@@ -18,32 +17,7 @@ type Props = {
   entries: Entry[];
 };
 
-const Top: Component<Props> = ({ entries }) => {
-  return Layout(
-    { title: siteName, ogType: "website" },
-    E(
-      "ul",
-      { class: "space-y-8 max-w-screen-md mx-auto" },
-      ...entries.map(({ title, date, path }) =>
-        E(
-          "li",
-          {},
-          E(
-            "div",
-            { class: "flex flex-col" },
-            E("time", { class: "text-sm" }, date),
-            E("a", { href: path, class: "mt-2 text-white" }, title)
-          )
-        )
-      )
-    )
-  );
-};
-
-export const getStaticProps: GetStaticProps<
-  Props,
-  Record<string, never>
-> = async () => {
+const Top: Component<Props> = async () => {
   const paths = await readdir(entriesDir);
 
   const entries = await Promise.all(
@@ -72,9 +46,27 @@ export const getStaticProps: GetStaticProps<
     })
   );
 
-  return {
-    entries: entries.sort((a, b) => b.date.localeCompare(a.date)),
-  };
+  entries.sort((a, b) => b.date.localeCompare(a.date));
+
+  return Layout(
+    { title: siteName, ogType: "website" },
+    h(
+      "ul",
+      { class: "space-y-8 max-w-screen-md mx-auto" },
+      ...entries.map(({ title, date, path }) =>
+        h(
+          "li",
+          {},
+          h(
+            "div",
+            { class: "flex flex-col" },
+            h("time", { class: "text-sm" }, date),
+            h("a", { href: path, class: "mt-2 text-white" }, title)
+          )
+        )
+      )
+    )
+  );
 };
 
 export default Top;

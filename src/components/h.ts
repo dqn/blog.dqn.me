@@ -1,6 +1,6 @@
 import type { Children, Element } from "../types/Element.js";
 
-export function E(
+export function h(
   tag: Element["tag"],
   attributes?: Element["attributes"],
   ...children: Children

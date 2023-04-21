@@ -20,13 +20,10 @@ function main(): void {
       return;
     }
 
-    const hasExt = path.extname(req.url) !== "";
-
-    const filepath =
-      (req.url === "/" ? withBaseDir("index") : withBaseDir(req.url)) +
-      (hasExt ? "" : ".html");
+    const filepath = withBaseDir(req.url);
 
     readFile(filepath, "utf8")
+      .catch(() => readFile(path.join(filepath, "index.html"), "utf8"))
       .then((data) => {
         res.writeHead(200);
         res.end(data);
